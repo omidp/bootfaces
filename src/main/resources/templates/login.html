@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="layout">
+
+	 <section layout:fragment="content">
+	 	<div class="span-10 append-2 last">
+
+				
+				<form name="f" th:action="@{/app/loginProcess}" class="w3-margin"
+					method="post">
+					<fieldset>
+						<legend th:text="#{application.login}"></legend>
+						<p>
+							<span th:text="#{application.username}"></span> <br />
+							
+							<input type="text" name="username"  />
+						</p>
+						<p>
+							<span th:text="#{application.password}"></span> <br /> 
+							<input type="password"		name="password" />
+						</p>
+						<p></p>
+						<p>
+							<input name="submit" type="submit" th:value="#{application.submit}"
+								onclick="showLoading();" />
+						</p>
+					</fieldset>
+				</form>
+			</div>
+	 </section>
+
+
+
+</html>

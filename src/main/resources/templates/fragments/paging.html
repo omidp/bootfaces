@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+	<div th:fragment="paging (pageSizes, selectedPageSize, result, path)" th:if="${not #lists.isEmpty(result.content) and #lists.size(result.content) > 0}">
+		<!-- Top container -->
+		<div class="form-group col-md-1" style="display: none;">
+			<select class="form-control pagination" id="pageSizeSelect"
+				>
+				<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+					th:value="${pageSize}"
+					th:selected="${pageSize} == ${selectedPageSize}"></option>
+			</select>
+		</div>
+		
+		<nav th:if="${result.totalPages != 1}"
+			class="pagination align-center">
+			<ul>
+				<li th:class="${result.number == 0} ? disabled"><a
+					class="prev"
+					th:href="@{${path}(pageSize=${selectedPageSize}, page=1)}+${#strings.isEmpty(filterParams) ? '' : filterParams}+${#strings.isEmpty(sortParams) ? '' : sortParams}">&laquo;</a>
+				</li>
+				<li th:class="${result.number == 0} ? disabled"><a
+					class="prev"
+					th:href="@{${path}(pageSize=${selectedPageSize}, page=${result.number})}+${#strings.isEmpty(filterParams) ? '' : filterParams}+${#strings.isEmpty(sortParams) ? '' : sortParams}">&larr;</a>
+				</li>
+				<li
+					th:class="${result.number == (page - 1)} ? 'active pointer-disabled'"
+					th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+					<a class="pageLink"
+					th:href="@{${path}(pageSize=${selectedPageSize}, page=${page})}+${#strings.isEmpty(filterParams) ? '' : filterParams}+${#strings.isEmpty(sortParams) ? '' : sortParams}"
+					th:text="${page}"></a>
+				</li>
+				<li th:class="${result.number + 1 == result.totalPages} ? disabled">
+					<a class="next" th:class="${result.number + 1 == result.totalPages} ? 'next disabled'"
+					th:href="@{${path}(pageSize=${selectedPageSize}, page=${result.number + 2})}+${#strings.isEmpty(filterParams) ? '' : filterParams}+${#strings.isEmpty(sortParams) ? '' : sortParams}">&rarr;</a>
+				</li>
+				<li th:class="${result.number + 1 == result.totalPages} ? disabled">
+					<a class="next" th:class="${result.number + 1 == result.totalPages} ? 'next disabled'"
+					th:href="@{${path}(pageSize=${selectedPageSize}, page=${result.totalPages})}+${#strings.isEmpty(filterParams) ? '' : filterParams}+${#strings.isEmpty(sortParams) ? '' : sortParams}">&raquo;</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+
+</body>
+</html>

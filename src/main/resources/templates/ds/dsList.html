@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="layout">
+
+<section layout:fragment="content">
+	
+	<div th:text="${msg}"></div>
+
+
+	<form th:action="''" method="get" th:object="${filter}" id="frm" class="forms">
+	
+		<div class="col col-6">
+
+		<div class="form-item">					
+			<label>								
+			 	<span th:text="#{application.name}" th:remove="tag"></span>
+			</label>
+			<input type="text" th:value="*{name}" name="name"/>
+			<div class="desc">
+				<span th:text="#{application.namedesc}" th:remove="tag"></span>
+			</div>
+			
+		</div> 
+
+	</div>
+		
+		
+		<select th:value="*{active}" name="active">
+			<option th:text="#{application.select}" value=""></option>
+			<option value="true" th:text="#{application.active}" th:if="*{active}" selected="selected"></option>
+			<option value="true" th:text="#{application.active}" th:if="*{null == active or !active}"></option>
+			<option value="false" th:text="#{application.inactive}" th:if="*{null == active or active}"></option>
+			<option value="false" th:text="#{application.inactive}" th:if="*{null != active and !active}" selected="selected"></option>
+		</select>
+		
+		<div class="actionbuttons">
+			<button type="submit" th:text="#{application.search}"></button>
+			<button type="submit" th:text="#{application.reset}" th:formaction="@{/member/datasources/reset}"></button>
+		</div>	
+	</form>
+	
+	<a th:href="@{/member/datasourceEdit}" th:text="#{application.create}"></a>
+	<div th:if="${#lists.isEmpty(result.content)}" th:text="#{application.nodata}">No Data</div>
+
+	<table class="table" th:if="${not #lists.isEmpty(result.content) and #lists.size(result.content) > 0}">
+		<tr>
+			<th><a th:href="@{/member/datasources(sort='name,desc')}" th:text="#{application.name}">name</a> </th>			
+		</tr>
+		<tr th:each="item : ${result.content}">
+			<td>
+				<a th:href="@{/member/datasourceEdit(dsId=${item.id})}"  th:text="${item.name}"></a>
+			</td>
+		</tr>
+	</table>
+
+	<div
+		th:replace="fragments/paging :: paging (pageSizes=${pageSizes},selectedPageSize=${selectedPageSize}, result=${result}, path='/member/datasources')">...</div>
+
+
+</section>
+
+
+
+</html>

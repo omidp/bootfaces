@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<meta th:include="/fragments/headtags :: headtags" th:remove="tag" />
+
+</head>
+<body class="w3-light-grey">
+
+	<div class="wrapper">
+		<div th:replace="fragments/header :: header" />
+
+		<div sec:authorize="isAuthenticated()">			
+			<div th:replace="fragments/sidebar :: sidebar" />
+		</div>
+
+		<div class="w3-main w3-margin"
+			style="margin-right: 340px; margin-left: 40px; width: 75%; padding-top: 30px;margin-top: 50px;">
+
+
+			<section layout:fragment="content" th:remove="tag">
+				<p>Page content goes here</p>
+			</section>
+
+
+			<div class="push"></div>
+		</div>
+
+
+	</div>
+
+
+
+
+
+	<div th:replace="fragments/footer :: footer" />
+
+
+</body>
+</html>

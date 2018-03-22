@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+</head>
+<body>
+	
+	<div class="col col-6" layout:fragment="edit (label,required)">
+
+		<div class="form-item">					
+			<label>				
+				<span class="req" th:if="${required}" th:class="${required ? 'req' : ''}">*</span>
+			 	<span th:text="${label}" th:remove="tag"></span>
+			</label>
+			
+			<div class="desc">
+				<span layout:fragment="desc" th:remove="tag"></span>
+			</div>
+			
+		</div> 
+
+	</div>
+	
+
+</body>
+</html>

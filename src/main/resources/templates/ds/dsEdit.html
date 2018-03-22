@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="layout">
+
+<section layout:fragment="content">
+
+	<form th:action="@{/member/datasourceEdit}" method="post"
+		th:object="${instance}" id="frm" class="forms">
+		
+		<input type="hidden" th:value="${param.dsId[0]}" name="dsId" th:if="${param.containsKey('dsId')}"/>
+		
+		<div class="col col-6">
+
+			<div class="form-item">
+				<label> <span class="req">*</span> <span
+					th:text="#{application.name}" th:remove="tag"></span> <span
+					class="req" th:if="${#fields.hasErrors('name')}"
+					th:errors="*{name}"></span>
+				</label> <input type="text" th:value="*{name}" name="name" />
+				<div class="desc">
+					<span th:text="#{application.namedesc}" th:remove="tag"></span>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="col col-6">
+
+			<div class="form-item">
+				<label> 
+				<select th:value="*{dsType}" name="dsType">
+					<option value="" th:text="#{application.select}"></option>
+					<option th:each="item : ${dsTypes}" th:remove="tag">
+						<option th:value="${item.name()}" th:text="${item.name()}"></option>	
+					</option>
+				</select>
+				<span
+					class="req" th:if="${#fields.hasErrors('dsType')}"
+					th:errors="*{dsType}"></span>
+				</label> 
+				<div class="desc">
+					
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+		<div class="actionbuttons">
+			<button type="submit" th:text="#{application.create}" th:if="${not idDefined}"></button>
+			<button type="submit" th:text="#{application.edit}" th:if="${idDefined}"></button>
+			<a  th:text="#{application.delete}"
+				th:if="${idDefined}"></a>
+			<a  th:text="#{application.back}"
+				th:href="@{/member/datasources}"></a>
+		</div>
+	</form>
+
+
+
+</section>
+
+
+
+</html>
