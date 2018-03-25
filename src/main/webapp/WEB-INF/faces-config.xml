@@ -7,7 +7,7 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<message-bundle>
-			i18n.ValidationMessages
+			messages.ValidationMessages
 		</message-bundle>
 		<locale-config>
 			<default-locale>fa</default-locale>
@@ -15,7 +15,7 @@
 			<supported-locale>fa</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>i18n.messages</base-name>			
+			<base-name>messages.messages</base-name>			
 			<var>msgs</var>
 		</resource-bundle>
 		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
